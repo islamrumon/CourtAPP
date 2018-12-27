@@ -1,0 +1,110 @@
+﻿@model CourtApp.Models.SMINF
+
+@{
+    ViewBag.Title = "সমন  পরিবর্তন";
+    ViewBag.controller = ViewBag.controller;
+    ViewBag.action = ViewBag.action;
+    ViewBag.TitleText = ViewBag.TitleText;
+}
+
+<h2>সমন  পরিবর্তন করুন </h2>
+<div class="row">
+    <div class="col-md-4">
+        <a href="/manageSomon/Index" class="nav-link">সমন তালিকা</a>
+    </div>
+    <div class="col-md-4">
+        <p>
+            <a href="/manageSomon/Details/@Model.SMID" class="nav-link">
+                ফিরে যান
+            </a>
+        </p>
+    </div>
+</div>
+<hr />
+
+
+@if (ViewBag.warning != null)
+{
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@ViewBag.warning</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SMID)
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">সমন নং</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SMNUM, new { htmlAttributes = new { @class = "form-control", @requried = "requried", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.SMNUM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">সমন তারিখ</label>
+
+            <div class="col-md-10">
+                <input class="form-control" id="datepicker" value="@Model.SMDAT" autocomplete="off" name="SMDAT" />
+                @Html.ValidationMessageFor(model => model.SMDAT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">মামলার তারিখ</label>
+            <div class="col-md-10">
+                <input class="form-control" id="datepicker1" autocomplete="off" value="@Model.CASEDATE" name="CASEDATE" />
+                @Html.ValidationMessageFor(model => model.CASEDATE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">আদালত নাম</label>
+            <div class="col-md-10">
+                @Html.DropDownList("COURTID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COURTID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="সংরক্ষিত" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts{
+
+    <script src="~/assets/jquery-1.12.4.js"></script>
+    <script src="~/assets/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker();
+            $("#datepicker").datepicker("option", "dateFormat", "d MM, y");
+            $("#datepicker1").datepicker();
+            $("#datepicker1").datepicker("option", "dateFormat", "d MM, y");
+
+        })
+                    //$(function () {
+                    //    $("#datepicker").datepicker();
+                    //    $("#format").on("change", function () {
+                    //        $("#datepicker").datepicker("option", "dateFormat", $(this).val());
+                    //    });
+                    //});
+    </script>
+
+}

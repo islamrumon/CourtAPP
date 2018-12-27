@@ -1,0 +1,46 @@
+﻿@model CourtApp.Models.WRINFP
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    @*<input type="hidden" name="WRNUM" value="@ViewBag.WRNUM" />*@
+    <input type="hidden" name="WRID" value="@ViewBag.WRID" />
+
+
+    <div class="form-group">
+        <label class="control-label">নাম</label>
+        <div class="">
+            @Html.EditorFor(model => model.PRSNAME, new { htmlAttributes = new { @class = "form-control", @required = "required", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.PRSNAME, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">ঠিকানা</label>
+        <div class="">
+            <textarea required cols="20" class="form-control" id="PRSADDRESS"  name="PRSADDRESS" rows="4" style="margin-top: 0px; margin-bottom: 0px; height: 98px;"></textarea>
+            @Html.ValidationMessageFor(model => model.PRSADDRESS, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">এরিয়া</label>
+
+        <div class="">
+            @Html.DropDownList("AREAID", null, "-- এলাকা নির্বাচন করুন--", htmlAttributes: new { @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(model => model.AREAID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="তৈরি করুন" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+

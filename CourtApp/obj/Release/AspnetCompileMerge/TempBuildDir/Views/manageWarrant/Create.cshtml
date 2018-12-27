@@ -1,0 +1,137 @@
+﻿@model CourtApp.Models.WRINF
+
+@{
+
+
+    ViewBag.Title = "ওয়ারেন্ট  তৈরী করুন";
+    ViewBag.controller = ViewBag.controller;
+    ViewBag.action = ViewBag.action;
+    ViewBag.TitleText = ViewBag.TitleText;
+}
+
+@section scripts{
+
+    <script src="~/assets/jquery-1.12.4.js"></script>
+    <script src="~/assets/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker();
+            $("#datepicker").datepicker("option", "dateFormat", "d MM, y");
+            $("#datepicker1").datepicker();
+            $("#datepicker1").datepicker("option", "dateFormat", "d MM, y");
+
+        })
+                //$(function () {
+                //    $("#datepicker").datepicker();
+                //    $("#format").on("change", function () {
+                //        $("#datepicker").datepicker("option", "dateFormat", $(this).val());
+                //    });
+                //});
+    </script>
+
+}
+
+
+
+
+@if (ViewBag.warning != null)
+{
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@ViewBag.warning</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal card">
+        <div class="card-header">
+            <h2> নতুন ওয়ারেন্ট  তৈরী করুন </h2>
+            <div>
+                @Html.ActionLink("ওয়ারেন্ট তালিকা", "Index")
+            </div>
+        </div>
+        <div class="card-body">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label">ওয়ারেন্ট নং</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.WRNUM, new { htmlAttributes = new { @class = "form-control", @required = "required", autocomplete = "off" } })
+                    @Html.ValidationMessageFor(model => model.WRNUM, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">ওয়ারেন্ট তারিখ</label>
+                <div class="col-md-10">
+                    <input type="text" name="WRDAT" class="form-control" required id="datepicker" autocomplete="off" />
+                    @Html.ValidationMessageFor(model => model.WRDAT, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label">মামলার তারিখ</label>
+                <div class="col-md-10">
+                    <input type="text" name="CASEDATE" class="form-control" required id="datepicker1" autocomplete="off" />
+                    @Html.ValidationMessageFor(model => model.CASEDATE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label ">আদালত নাম</label>
+                <div class="col-md-10">
+
+                    @Html.DropDownList("COURTID", null, "--আদালত নির্বাচন করুন--", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.COURTID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label ">প্রসেস রেজিঃ রেফারেন্স</label>
+
+            <div class="col-md-10">
+                <textarea cols="20" class="form-control" id="PREGREF" name="PREGREF" rows="8" style="margin-top: 0px; margin-bottom: 0px; height: 98px;" required></textarea>
+                @*@Html.EditorFor(model => model.PREGREF, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.PREGREF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">বর্তমান অবস্থা</label>
+            <div class="col-md-10">
+                <select class="form-control" name="DISPOSE" required>
+                    <option value="">--নির্বাচন করুন--</option>
+                    <option value="তামিল (বডি)">তামিল (বডি)</option>
+                    <option value="তামিল (রিকল)">তামিল (রিকল) </option>
+                    <option value="তামিল (এন ই আর)">তামিল (এন ই আর)</option>
+                    <option value="তামিল (অন্যান্য)">তামিল (অন্যান্য)</option>
+                    <option value="মুলতবি">মুলতবি </option>
+                </select>
+                @Html.ValidationMessageFor(model => model.DISPOSE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group  card-footer">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="তৈরি করুন" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    @*<select id="format">
+            <option value="mm/dd/yy">Default - mm/dd/yy</option>
+            <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
+            <option value="d M, y">Short - d M, y</option>
+            <option value="d MM, y">Medium - d MM, y</option>
+            <option value="DD, d MM, yy">Full - DD, d MM, yy</option>
+            <option value="&apos;day&apos; d &apos;of&apos; MM &apos;in the year&apos; yy">With text - 'day' d 'of' MM 'in the year' yy</option>
+        </select>*@
+}

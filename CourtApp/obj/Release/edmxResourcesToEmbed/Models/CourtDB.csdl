@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COURTDATABASEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AREAINF">
+    <Key>
+      <PropertyRef Name="AREAID" />
+    </Key>
+    <Property Name="AREAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AREANAM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SMINFPs" Relationship="Self.FK_SMINFP_AREAINF" FromRole="AREAINF" ToRole="SMINFP" />
+    <NavigationProperty Name="WRINFPs" Relationship="Self.FK_WRINFP_AREAINF" FromRole="AREAINF" ToRole="WRINFP" />
+  </EntityType>
+  <EntityType Name="COURTINF">
+    <Key>
+      <PropertyRef Name="COURTID" />
+    </Key>
+    <Property Name="COURTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COURTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="COURTTYPE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SMINFs" Relationship="Self.FK_SMINF_COURTINF" FromRole="COURTINF" ToRole="SMINF" />
+    <NavigationProperty Name="WRINFs" Relationship="Self.FK_WRINF_COURTINF" FromRole="COURTINF" ToRole="WRINF" />
+  </EntityType>
+  <EntityType Name="SMINF">
+    <Key>
+      <PropertyRef Name="SMID" />
+      <PropertyRef Name="SMNUM" />
+    </Key>
+    <Property Name="SMID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SMNUM" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SMDAT" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CASEDATE" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="COURTID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COURTINF" Relationship="Self.FK_SMINF_COURTINF" FromRole="SMINF" ToRole="COURTINF" />
+  </EntityType>
+  <EntityType Name="SMINFP">
+    <Key>
+      <PropertyRef Name="SMID" />
+      <PropertyRef Name="PSL" />
+    </Key>
+    <Property Name="SMID" Type="Int64" Nullable="false" />
+    <Property Name="PSL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRSNAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PRSADDRESS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AREAID" Type="Int32" Nullable="false" />
+    <Property Name="SMTYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AREAINF" Relationship="Self.FK_SMINFP_AREAINF" FromRole="SMINFP" ToRole="AREAINF" />
+  </EntityType>
+  <EntityType Name="WRINF">
+    <Key>
+      <PropertyRef Name="WRID" />
+    </Key>
+    <Property Name="WRID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WRNUM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="WRDAT" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CASEDATE" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="COURTID" Type="Int32" Nullable="false" />
+    <Property Name="PREGREF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DISPOSE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="COURTINF" Relationship="Self.FK_WRINF_COURTINF" FromRole="WRINF" ToRole="COURTINF" />
+  </EntityType>
+  <EntityType Name="WRINFP">
+    <Key>
+      <PropertyRef Name="WRID" />
+      <PropertyRef Name="PSL" />
+    </Key>
+    <Property Name="WRID" Type="Int64" Nullable="false" />
+    <Property Name="PSL" Type="Int32" Nullable="false" />
+    <Property Name="PRSNAME" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PRSADDRESS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AREAID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AREAINF" Relationship="Self.FK_WRINFP_AREAINF" FromRole="WRINFP" ToRole="AREAINF" />
+  </EntityType>
+  <Association Name="FK_SMINFP_AREAINF">
+    <End Role="AREAINF" Type="Self.AREAINF" Multiplicity="1" />
+    <End Role="SMINFP" Type="Self.SMINFP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AREAINF">
+        <PropertyRef Name="AREAID" />
+      </Principal>
+      <Dependent Role="SMINFP">
+        <PropertyRef Name="AREAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WRINFP_AREAINF">
+    <End Role="AREAINF" Type="Self.AREAINF" Multiplicity="1" />
+    <End Role="WRINFP" Type="Self.WRINFP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AREAINF">
+        <PropertyRef Name="AREAID" />
+      </Principal>
+      <Dependent Role="WRINFP">
+        <PropertyRef Name="AREAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SMINF_COURTINF">
+    <End Role="COURTINF" Type="Self.COURTINF" Multiplicity="1" />
+    <End Role="SMINF" Type="Self.SMINF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURTINF">
+        <PropertyRef Name="COURTID" />
+      </Principal>
+      <Dependent Role="SMINF">
+        <PropertyRef Name="COURTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WRINF_COURTINF">
+    <End Role="COURTINF" Type="Self.COURTINF" Multiplicity="1" />
+    <End Role="WRINF" Type="Self.WRINF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURTINF">
+        <PropertyRef Name="COURTID" />
+      </Principal>
+      <Dependent Role="WRINF">
+        <PropertyRef Name="COURTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="COURTDATABASEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AREAINFs" EntityType="Self.AREAINF" />
+    <EntitySet Name="COURTINFs" EntityType="Self.COURTINF" />
+    <EntitySet Name="SMINFs" EntityType="Self.SMINF" />
+    <EntitySet Name="SMINFPs" EntityType="Self.SMINFP" />
+    <EntitySet Name="WRINFs" EntityType="Self.WRINF" />
+    <EntitySet Name="WRINFPs" EntityType="Self.WRINFP" />
+    <AssociationSet Name="FK_SMINFP_AREAINF" Association="Self.FK_SMINFP_AREAINF">
+      <End Role="AREAINF" EntitySet="AREAINFs" />
+      <End Role="SMINFP" EntitySet="SMINFPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WRINFP_AREAINF" Association="Self.FK_WRINFP_AREAINF">
+      <End Role="AREAINF" EntitySet="AREAINFs" />
+      <End Role="WRINFP" EntitySet="WRINFPs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SMINF_COURTINF" Association="Self.FK_SMINF_COURTINF">
+      <End Role="COURTINF" EntitySet="COURTINFs" />
+      <End Role="SMINF" EntitySet="SMINFs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WRINF_COURTINF" Association="Self.FK_WRINF_COURTINF">
+      <End Role="COURTINF" EntitySet="COURTINFs" />
+      <End Role="WRINF" EntitySet="WRINFs" />
+    </AssociationSet>
+    <FunctionImport Name="UpdateWRP">
+      <Parameter Name="WRID" Mode="In" Type="Int64" />
+      <Parameter Name="PSL" Mode="In" Type="Int32" />
+      <Parameter Name="PRSNAME" Mode="In" Type="String" />
+      <Parameter Name="PRSADDRESS" Mode="In" Type="String" />
+      <Parameter Name="AREAID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateSMP">
+      <Parameter Name="smId" Mode="In" Type="Int64" />
+      <Parameter Name="psl" Mode="In" Type="Int64" />
+      <Parameter Name="pName" Mode="In" Type="String" />
+      <Parameter Name="pAddress" Mode="In" Type="String" />
+      <Parameter Name="areaId" Mode="In" Type="Int32" />
+      <Parameter Name="smType" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SommonList" ReturnType="Collection(COURTDATABASEModel.SommonList_Result)" />
+    <FunctionImport Name="warrantL" ReturnType="Collection(COURTDATABASEModel.warrantL_Result)" />
+    <FunctionImport Name="SomonWithDetials" ReturnType="Collection(COURTDATABASEModel.SomonWithDetials_Result)" />
+    <FunctionImport Name="WarrantWithDetials" ReturnType="Collection(COURTDATABASEModel.WarrantWithDetials_Result)" />
+  </EntityContainer>
+  <ComplexType Name="SommonList_Result">
+    <Property Type="String" Name="SlNum" Nullable="true" MaxLength="30" />
+    <Property Type="Int64" Name="SMID" Nullable="false" />
+    <Property Type="String" Name="COURTNAME" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="SMNUM" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="SomonDate" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="CaseDate" Nullable="true" MaxLength="4000" />
+  </ComplexType>
+  <ComplexType Name="warrantL_Result">
+    <Property Type="String" Name="SLNum" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="WRNUM" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="COURTNAME" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="warrantdate" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="casedate" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="PREGREF" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DISPOSE" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="SomonWithDetials_Result">
+    <Property Type="Int32" Name="slnum" Nullable="true" />
+    <Property Type="Int64" Name="smid" Nullable="true" />
+    <Property Type="String" Name="smnum" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="psl" Nullable="true" />
+    <Property Type="String" Name="prsdesc" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="smdate" Nullable="false" />
+    <Property Type="DateTime" Name="casedate" Nullable="false" />
+    <Property Type="String" Name="smtype" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="WarrantWithDetials_Result">
+    <Property Type="Int32" Name="slnum" Nullable="true" />
+    <Property Type="Int64" Name="wrid" Nullable="true" />
+    <Property Type="Int32" Name="psl" Nullable="true" />
+    <Property Type="String" Name="wrnum" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="wrdate" Nullable="false" />
+    <Property Type="DateTime" Name="casedate" Nullable="false" />
+    <Property Type="String" Name="prsdesc" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="courtid" Nullable="true" />
+    <Property Type="String" Name="pregref" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="dispose" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

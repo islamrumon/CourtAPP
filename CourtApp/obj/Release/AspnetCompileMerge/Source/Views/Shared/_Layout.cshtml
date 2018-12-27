@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -আদালত </title>
+
+    <link rel="stylesheet" href="~/assets/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/mdb.min.css" />
+    <link rel="stylesheet" href="~/assets/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="~/assets/jquery-ui.css">
+    <link rel="stylesheet" href="~/assets/css/style.css" />
+
+</head>
+<body>
+
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #e3f2fd; margin-bottom:15px;">
+
+        <!-- Navbar brand -->
+        <div class="navbar-brand">
+            <a href="/Home/Index"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+            @if (ViewBag.controller != null)
+            {
+                <a href="/@ViewBag.controller">/ @ViewBag.TitleText</a>
+            }
+            @if (ViewBag.action != null)
+            {
+                <a href="/@ViewBag.controller/@ViewBag.action">/ @ViewBag.Title</a>
+            }
+
+
+        </div>
+
+        <a class="text-lg-center" style="font-size:23px" href="/">থানার সমন ও ওয়ারেন্ট নিবন্ধন</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item nav-link">@Html.ActionLink("সমন পরিচালনা", "Index", "manageSomon")</li>
+                <li class="nav-item nav-link">@Html.ActionLink("ওয়ারেন্ট পরিচালনা", "Index", "manageWarrant")</li>
+
+            </ul>
+            <!-- Links -->
+        </div>
+        <!-- Collapsible content -->
+
+    </nav>
+    <!--/.Navbar-->
+    <div class="container body-content">
+
+
+
+
+        @RenderBody()
+
+    </div>
+    <hr />
+    <footer class="footer">
+        <div class="float-right">
+            @*<p class="footerText d-none d-md-block">
+                <a href="http://www.asit.com.bd" target="_blank">&copy;  @DateTime.Now.Year - Advanced Software &amp; IT Services Ltd.,</a>
+                &nbsp;&nbsp;<a href="#"> Terms of use</a>
+                &nbsp;&nbsp;<a href="http://www.asit.com.bd/Feedback.aspx" target="_blank"> Contact us</a>
+            </p>
+            <p class="footerText d-md-none">
+                <a href="http://www.asit.com.bd" target="_blank">&copy;  @DateTime.Now.Year  - ASIT Services Ltd.,</a>
+            </p>*@
+        </div>
+    </footer>
+
+    <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/mdb.min.js"></script>
+    <script src="~/assets/js/jquery.datatables.js"></script>
+
+    <script src="~/assets/js/notify.js"></script>
+
+    <script src="~/assets/js/modernizr-2.8.3.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').DataTable({
+                "ordering": false
+            });
+
+            $('.table').addClass('animated bounce');
+            //$('.col-md-4').addClass('animated flip');
+            //$('.col-md-8').addClass('animated slideInUp');
+            $('[data-toggle="tooltip"]').tooltip()
+
+
+        });
+
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

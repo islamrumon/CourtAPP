@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="COURTDATABASEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AREAINF">
+    <Key>
+      <PropertyRef Name="AREAID" />
+    </Key>
+    <Property Name="AREAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AREANAM" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COURTINF">
+    <Key>
+      <PropertyRef Name="COURTID" />
+    </Key>
+    <Property Name="COURTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COURTNAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="COURTTYPE" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SMINF">
+    <Key>
+      <PropertyRef Name="SMID" />
+      <PropertyRef Name="SMNUM" />
+    </Key>
+    <Property Name="SMID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SMNUM" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="SMDAT" Type="date" Nullable="false" />
+    <Property Name="CASEDATE" Type="date" Nullable="false" />
+    <Property Name="COURTID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SMINFP">
+    <Key>
+      <PropertyRef Name="SMID" />
+      <PropertyRef Name="PSL" />
+    </Key>
+    <Property Name="SMID" Type="bigint" Nullable="false" />
+    <Property Name="PSL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PRSNAME" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="PRSADDRESS" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="AREAID" Type="int" Nullable="false" />
+    <Property Name="SMTYPE" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WRINF">
+    <Key>
+      <PropertyRef Name="WRID" />
+    </Key>
+    <Property Name="WRID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WRNUM" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="WRDAT" Type="date" Nullable="false" />
+    <Property Name="CASEDATE" Type="date" Nullable="false" />
+    <Property Name="COURTID" Type="int" Nullable="false" />
+    <Property Name="PREGREF" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DISPOSE" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WRINFP">
+    <Key>
+      <PropertyRef Name="WRID" />
+      <PropertyRef Name="PSL" />
+    </Key>
+    <Property Name="WRID" Type="bigint" Nullable="false" />
+    <Property Name="PSL" Type="int" Nullable="false" />
+    <Property Name="PRSNAME" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="PRSADDRESS" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="AREAID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_SMINF_COURTINF">
+    <End Role="COURTINF" Type="Self.COURTINF" Multiplicity="1" />
+    <End Role="SMINF" Type="Self.SMINF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURTINF">
+        <PropertyRef Name="COURTID" />
+      </Principal>
+      <Dependent Role="SMINF">
+        <PropertyRef Name="COURTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SMINFP_AREAINF">
+    <End Role="AREAINF" Type="Self.AREAINF" Multiplicity="1" />
+    <End Role="SMINFP" Type="Self.SMINFP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AREAINF">
+        <PropertyRef Name="AREAID" />
+      </Principal>
+      <Dependent Role="SMINFP">
+        <PropertyRef Name="AREAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WRINF_COURTINF">
+    <End Role="COURTINF" Type="Self.COURTINF" Multiplicity="1" />
+    <End Role="WRINF" Type="Self.WRINF" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COURTINF">
+        <PropertyRef Name="COURTID" />
+      </Principal>
+      <Dependent Role="WRINF">
+        <PropertyRef Name="COURTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WRINFP_AREAINF">
+    <End Role="AREAINF" Type="Self.AREAINF" Multiplicity="1" />
+    <End Role="WRINFP" Type="Self.WRINFP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AREAINF">
+        <PropertyRef Name="AREAID" />
+      </Principal>
+      <Dependent Role="WRINFP">
+        <PropertyRef Name="AREAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SommonList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SomonWithDetials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UpdateSMP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="smId" Type="bigint" Mode="In" />
+    <Parameter Name="psl" Type="bigint" Mode="In" />
+    <Parameter Name="pName" Type="nvarchar" Mode="In" />
+    <Parameter Name="pAddress" Type="nvarchar" Mode="In" />
+    <Parameter Name="areaId" Type="int" Mode="In" />
+    <Parameter Name="smType" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateWRP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="WRID" Type="bigint" Mode="In" />
+    <Parameter Name="PSL" Type="int" Mode="In" />
+    <Parameter Name="PRSNAME" Type="nvarchar" Mode="In" />
+    <Parameter Name="PRSADDRESS" Type="nvarchar" Mode="In" />
+    <Parameter Name="AREAID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="warrantL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="WarrantWithDetials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="COURTDATABASEModelStoreContainer">
+    <EntitySet Name="AREAINF" EntityType="Self.AREAINF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COURTINF" EntityType="Self.COURTINF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SMINF" EntityType="Self.SMINF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SMINFP" EntityType="Self.SMINFP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WRINF" EntityType="Self.WRINF" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WRINFP" EntityType="Self.WRINFP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_SMINF_COURTINF" Association="Self.FK_SMINF_COURTINF">
+      <End Role="COURTINF" EntitySet="COURTINF" />
+      <End Role="SMINF" EntitySet="SMINF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SMINFP_AREAINF" Association="Self.FK_SMINFP_AREAINF">
+      <End Role="AREAINF" EntitySet="AREAINF" />
+      <End Role="SMINFP" EntitySet="SMINFP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WRINF_COURTINF" Association="Self.FK_WRINF_COURTINF">
+      <End Role="COURTINF" EntitySet="COURTINF" />
+      <End Role="WRINF" EntitySet="WRINF" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WRINFP_AREAINF" Association="Self.FK_WRINFP_AREAINF">
+      <End Role="AREAINF" EntitySet="AREAINF" />
+      <End Role="WRINFP" EntitySet="WRINFP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

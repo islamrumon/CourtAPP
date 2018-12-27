@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1289cf817a094c4e8459cb689f748dea" Name="Diagram1">
+        <EntityTypeShape EntityType="COURTDATABASEModel.AREAINF" Width="1.5" PointX="5.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="COURTDATABASEModel.COURTINF" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="COURTDATABASEModel.SMINF" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="COURTDATABASEModel.SMINFP" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="COURTDATABASEModel.WRINF" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="COURTDATABASEModel.WRINFP" Width="1.5" PointX="8" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="COURTDATABASEModel.FK_SMINFP_AREAINF" ManuallyRouted="false" />
+        <AssociationConnector Association="COURTDATABASEModel.FK_WRINFP_AREAINF" ManuallyRouted="false" />
+        <AssociationConnector Association="COURTDATABASEModel.FK_SMINF_COURTINF" ManuallyRouted="false" />
+        <AssociationConnector Association="COURTDATABASEModel.FK_WRINF_COURTINF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

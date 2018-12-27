@@ -1,0 +1,134 @@
+﻿@model CourtApp.Models.WRINF
+
+
+@{
+    ViewBag.Title = "ওয়ারেন্ট পরিবর্তন করুন";
+    ViewBag.controller = ViewBag.controller;
+    ViewBag.action = ViewBag.action;
+    ViewBag.TitleText = ViewBag.TitleText;
+}
+
+
+
+
+<h2>ওয়ারেন্ট  পরিবর্তন করুন </h2>
+<div class="row">
+    <div class="col-md-4">
+        <a href="/manageWarrant/Index" class="nav-link">ওয়ারেন্ট তালিকা</a>
+    </div>
+    <div class="col-md-4">
+        <p>
+            <a href="/manageWarrant/Details/@Model.WRID" class="nav-link">
+                ফিরে যান
+            </a>
+        </p>
+    </div>
+</div>
+<hr />
+
+@if (ViewBag.warning != null)
+{
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@ViewBag.warning</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.WRID)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">ওয়ারেন্ট নং</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WRNUM, new { htmlAttributes = new { @class = "form-control", @requried = "requried", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.WRNUM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">ওয়ারেন্ট তারিখ</label>
+
+            <div class="col-md-10">
+                <input class="form-control" id="datepicker" value="@Model.WRDAT" autocomplete="off" name="WRDAT" />
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">মামলার তারিখ</label>
+            <div class="col-md-10">
+                <input class="form-control" id="datepicker1" value="@Model.CASEDATE" autocomplete="off" name="CASEDATE" />
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">আদালত নাম</label>
+            <div class="col-md-10">
+                @Html.DropDownList("COURTID", null, htmlAttributes: new { @class = "form-control", @requried = "requried", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.COURTID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-5">প্রসেস রেজিঃ রেফারেন্স</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PREGREF, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.PREGREF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">বর্তমান অবস্থা</label>
+            <div class="col-md-10">
+                <select class="form-control" name="DISPOSE">
+                    <option value="তামিল (বডি)">তামিল (বডি)</option>
+                    <option value="তামিল (রিকল)">তামিল (রিকল) </option>
+                    <option value="তামিল (এন ই আর)">তামিল (এন ই আর)</option>
+                    <option value="তামিল (অন্যান্য)">তামিল (অন্যান্য)</option>
+                    <option value="মুলতবি">মুলতবি </option>
+                </select>
+                @Html.ValidationMessageFor(model => model.DISPOSE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="সংরক্ষিত" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+
+    <script src="~/assets/jquery-1.12.4.js"></script>
+    <script src="~/assets/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker();
+            $("#datepicker").datepicker("option", "dateFormat", "d MM, y");
+            $("#datepicker1").datepicker();
+            $("#datepicker1").datepicker("option", "dateFormat", "d MM, y");
+
+        })
+                    //$(function () {
+                    //    $("#datepicker").datepicker();
+                    //    $("#format").on("change", function () {
+                    //        $("#datepicker").datepicker("option", "dateFormat", $(this).val());
+                    //    });
+                    //});
+    </script>
+
+}

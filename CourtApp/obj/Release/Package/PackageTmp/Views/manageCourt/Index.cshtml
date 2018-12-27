@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CourtApp.Models.COURTINF>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>স্থানীয় আদালত তালিকা</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.COURTNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COURTTYPE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.COURTNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.COURTTYPE)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.COURTID }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.COURTID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

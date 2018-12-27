@@ -1,0 +1,53 @@
+﻿@model CourtApp.Models.SMINFP
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+   
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SMID)
+
+        @Html.HiddenFor(model => model.PSL)
+
+        <div class="form-group">
+            <label class="control-label">নাম</label>
+            <div>
+                @Html.EditorFor(model => model.PRSNAME, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.PRSNAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">ঠিকানা</label>
+            <div>
+                @Html.EditorFor(model => model.PRSADDRESS, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.PRSADDRESS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">এরিয়া</label>
+            <div>
+                @Html.DropDownList("AREAID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AREAID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">সমন টাইপ</label>
+            <div>
+                @Html.EditorFor(model => model.SMTYPE, new { htmlAttributes = new { @class = "form-control" , autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.SMTYPE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="সংরক্ষিত" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

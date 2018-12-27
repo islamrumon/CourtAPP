@@ -1,0 +1,142 @@
+﻿@model IEnumerable<CourtApp.Models.ViewModel.SomonVM>
+
+@{
+                /**/
+
+                ViewBag.Title = "সমন তথ্য সমূহ ";
+              
+                ViewBag.controller = ViewBag.controller;
+                ViewBag.action = ViewBag.action;
+
+}
+
+
+
+
+
+
+<h2>নতুন সমন তথ্য সমূহ </h2>
+<div class="row">
+    <div class="col-md-4">
+        <p>
+            @Html.ActionLink("সমন  তৈরী করুন ", "Create")
+        </p>
+    </div>
+
+    <div class="col-md-8">
+        <a href="/manageSomon/report?ReportType=pdf&Report=full" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a> |
+        <a href="/manageSomon/report?ReportType=excel&Report=full" class="btn btn-blue-grey"><i class="fa fa-file-excel-o" aria-hidden="true"></i></a> |
+      
+        <a href="/manageSomon/report?ReportType=pdf" target="_blank">Export to Pdf</a> |
+        <a href="/manageSomon/report?ReportType=excel">Export to Excel</a>
+        @*<a href="/manageWarrant/report?ReportType=word">Export to Word</a> |
+        <a href="/manageWarrant/report?ReportType=image" >Export to Image</a>*@
+    </div>
+</div>
+
+<div class="row">
+    @*<div class="col-md-4">
+        <p>
+            @Html.ActionLink("সমন  তৈরী করুন ", "Create")
+        </p>
+    </div>*@
+    @*<div class="col-md-8">
+            <form>
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">To</div>
+                            </div>
+                            <input type="text" class="form-control" id="datepickerto">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Form</div>
+                            </div>
+                            <input type="text" class="form-control" id="datepickerform">
+                        </div>
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary mb-2">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>*@
+</div>
+
+<table class="table table-striped table-bordered" id="datatable">
+    <thead class="grey lighten-2">
+        <tr style="text-align:center">
+            <th>
+                ক্রমিক নং
+            </th>
+            <th>
+                সমন নং
+            </th>
+            <th>
+                সমন তারিখ
+            </th>
+            <th>
+                কেস তারিখ
+            </th>
+            <th>
+                আদালত
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+
+        {
+           
+            <tr id="TR_@Html.DisplayFor(modelItem => item.SMID)">
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.SerialNum)
+                </td>
+                <td>
+                    <a data-toggle="tooltip" title="বিস্তারিত জানার জন্য এখানে ক্লিক করুন" class="nav-link" href="/manageSomon/Details/@item.SMID" target="_blank">
+                        @Html.DisplayFor(modelItem => item.SMNUM)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SMDAT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CASENUM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.courtName)
+                </td>
+
+
+            </tr>
+        }
+        
+    </tbody>
+   
+
+</table>
+
+
+
+
+@section scripts{
+    @*<script src="~/assets/jquery-1.12.4.js"></script>*@
+    <script src="~/assets/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datepickerto").datepicker();
+            $("#datepickerto").datepicker("option", "dateFormat", "d MM, y");
+            $("#datepickerform").datepicker();
+            $("#datepickerform").datepicker("option", "dateFormat", "d MM, y");
+
+        })
+    </script>
+}

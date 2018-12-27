@@ -1,0 +1,86 @@
+.footer {
+    padding: 0px 20px;
+}
+
+.footerText {
+    margin: 10px;
+}
+
+strong {
+    font-weight: bolder;
+    color: blueviolet;
+}
+
+.nav-link {
+    text-decoration: underline;
+    color: blue !important;
+}
+
+    .nav-link:hover {
+        text-decoration: none;
+        color: cadetblue;
+        cursor: pointer;
+    }
+
+table.table td, table.table th {
+    padding-top: 3px !important;
+    padding-bottom: 2px !important;
+}
+
+.table th, table td {
+    padding: 0 !important;
+    vertical-align: auto !important;
+}
+
+.trs td {
+    padding-top: 3px !important;
+    padding-bottom: 2px !important;
+}
+
+.nsd {
+    display: inline;
+    float: right;
+}
+
+.card-title {
+    margin-bottom: -1.25rem !important;
+}
+
+.links a {
+    display: inline;
+}
+
+    .links a span {
+        display: inline;
+    }
+
+/*.dataTables_info {
+    background-color: lavender;
+    margin: 1px;
+}
+.dataTables_paginate {
+    background-color: lavender;
+    margin: 1px;
+}*/
+/*.row:last-child {
+    background-color: #e3f2fd;
+    border: solid 1px black;
+}
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: 6px !important;
+    /* white-space: nowrap; */
+
+
+.footer {
+    background-color: cornflowerblue !important;
+}
+
+.control-label {
+    font-weight: 900;
+    background-color: aliceblue;
+    margin-left: 16px;
+}
+td {
+    vertical-align: middle;
+    text-indent: 12px;
+}

@@ -1,0 +1,186 @@
+﻿@model CourtApp.Models.ViewModel.SomonVM
+
+@{
+    ViewBag.Title = "সমন তথ্য";
+    var a = 0;
+    ViewBag.controller = ViewBag.controller;
+    ViewBag.action = ViewBag.action;
+    ViewBag.TitleText = ViewBag.TitleText;
+}
+
+<div>
+    <h2>সমন তথ্য</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="/manageSomon/Index" class="nav-link">সমন তালিকা</a>
+        </div>
+        <div class="col-md-4">
+            <p>
+                @Html.ActionLink("সমন  তৈরী করুন ", "Create")
+            </p>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+
+
+        <div class="col-md-4">
+            <strong>সমন নং</strong>
+            <p class="nsd">@Html.DisplayFor(model => model.SMNUM)</p>
+            <hr />
+            <strong>সমন তারিখ</strong>
+            <p class="nsd">@Html.DisplayFor(model => model.SMDAT)</p>
+            <hr />
+
+
+        </div>
+
+
+        <div class="col-md-8">
+            <strong>আদালত</strong>
+            <p class="nsd">@Html.DisplayFor(model => model.COURTINF.COURTNAME)</p>
+            <hr />
+            <strong>মামলার তারিখ</strong>
+            <p class="nsd">@Html.DisplayFor(model => model.CASENUM)</p>
+
+        </div>
+    </div>
+    <div class="btn-group-sm">
+
+
+        <a href="/manageSomon/Edit/@Model.SMID" class="btn btn-sm btn-outline-light-blue">সমন পরিবর্তন করুন</a>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h5 class="card-title text-center"><button onclick="addInfo(@Model.SMID)" class="btn btn-sm btn-light-green">সমন ব্যক্তি তথ্য</button></h5>
+    <hr />
+    <div class="card-body">
+        <table class="table table-striped table-bordered" id="datatable">
+            <thead class="grey lighten-2">
+                <tr style="text-align:center">
+                    <th scope="col">ক্রমিক</th>
+                    <th scope="col">নাম</th>
+                    <th scope="col">ঠিকানা</th>
+                    <th scope="col">এরিয়া</th>
+                    <th scope="col">সমন টাইপ</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SomonPList)
+                {
+                   
+                <tr class="trs" id="tr_@Html.DisplayFor(modelItem => item.PSL)">
+                    <td scope="row">@item.SerialNum</td>
+                    <td>
+                        <p class="nav-link" onclick="editinfo(@Model.SMID, @item.PSL)">  @item.PRSNAME</p>
+                    </td>
+                    <td>@item.PRSADDRESS</td>
+                    <td>@item.AreaName</td>
+                    <td>@item.SMTYPE</td>
+
+                </tr>
+                }
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+<!--This is Modale -->
+<div class="modal fade" id="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="loadUrl">
+                <!--Here load the partial view-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        //add the Warrant Peson Information
+        function addInfo(id) {
+            $(".modal-title").text('সমন ব্যক্তি তথ্য যোগ করুন');
+
+            var url = '/manageSomon/CreateSp/' + + id;
+            $('#loadUrl').load(url, function () {
+                $('#showModal').modal('show');
+            });
+        }
+
+        //edit the Warrant Person Information
+        function editinfo(sid, id) {
+            $(".modal-title").text('ব্যক্তি তথ্য সম্পাদনা করুন');
+            var url = '/manageSomon/EditSp/?srid=' + sid + '&id=' + id;
+
+            $('#loadUrl').load(url, function () {
+                $('#showModal').modal('show');
+            });
+
+        }
+
+        //delete the Warrant Person Information
+        function deleteinfo(id) {
+
+            var info = confirm("Are You Sure To want To Delete This Item");
+            if (info) {
+
+                //hit the method using ajax
+                $.ajax({
+                    url: '/manageWarrant/DeleteWp/' + id,
+
+                    type: 'post',
+                    success: function (result) {
+                        if (result) {
+                            $.notify('Item Deleted Succesfully', 'success');
+                            $("#tr_" + id).remove();
+                        } else {
+                            $.notify('There Have Create Some problem! Sorry For Refresh This Page', 'warning');
+                            location.reload();
+                        }
+
+                    },
+                    error: function () {
+                        $.notify('There Have Create Some problem! Sorry For Refresh This Page', 'warning');
+                        location.reload();
+                    }
+                });
+            } else {
+                return false;
+            }
+        }
+
+        //editWarrant
+        function editWarrant(id) {
+            $(".modal-title").text('ওয়ারেন্ট তথ্য সম্পাদনা করুন');
+            var url = '/manageWarrant/Edit/' + id;
+
+            $('#loadUrl').load(url, function () {
+                $('#showModal').modal('show');
+            });
+            $('.datepicker').pickadate({
+                selectMonths: true
+            });
+        }
+    </script>
+
+}

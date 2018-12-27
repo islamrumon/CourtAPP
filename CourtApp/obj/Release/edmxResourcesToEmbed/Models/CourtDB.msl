@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="COURTDATABASEModelStoreContainer" CdmEntityContainer="COURTDATABASEEntities">
+    <EntitySetMapping Name="AREAINFs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.AREAINF">
+        <MappingFragment StoreEntitySet="AREAINF">
+          <ScalarProperty Name="AREAID" ColumnName="AREAID" />
+          <ScalarProperty Name="AREANAM" ColumnName="AREANAM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COURTINFs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.COURTINF">
+        <MappingFragment StoreEntitySet="COURTINF">
+          <ScalarProperty Name="COURTID" ColumnName="COURTID" />
+          <ScalarProperty Name="COURTNAME" ColumnName="COURTNAME" />
+          <ScalarProperty Name="COURTTYPE" ColumnName="COURTTYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SMINFs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.SMINF">
+        <MappingFragment StoreEntitySet="SMINF">
+          <ScalarProperty Name="SMID" ColumnName="SMID" />
+          <ScalarProperty Name="SMNUM" ColumnName="SMNUM" />
+          <ScalarProperty Name="SMDAT" ColumnName="SMDAT" />
+          <ScalarProperty Name="CASEDATE" ColumnName="CASEDATE" />
+          <ScalarProperty Name="COURTID" ColumnName="COURTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SMINFPs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.SMINFP">
+        <MappingFragment StoreEntitySet="SMINFP">
+          <ScalarProperty Name="SMID" ColumnName="SMID" />
+          <ScalarProperty Name="PSL" ColumnName="PSL" />
+          <ScalarProperty Name="PRSNAME" ColumnName="PRSNAME" />
+          <ScalarProperty Name="PRSADDRESS" ColumnName="PRSADDRESS" />
+          <ScalarProperty Name="AREAID" ColumnName="AREAID" />
+          <ScalarProperty Name="SMTYPE" ColumnName="SMTYPE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WRINFs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.WRINF">
+        <MappingFragment StoreEntitySet="WRINF">
+          <ScalarProperty Name="WRID" ColumnName="WRID" />
+          <ScalarProperty Name="WRNUM" ColumnName="WRNUM" />
+          <ScalarProperty Name="WRDAT" ColumnName="WRDAT" />
+          <ScalarProperty Name="CASEDATE" ColumnName="CASEDATE" />
+          <ScalarProperty Name="COURTID" ColumnName="COURTID" />
+          <ScalarProperty Name="PREGREF" ColumnName="PREGREF" />
+          <ScalarProperty Name="DISPOSE" ColumnName="DISPOSE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WRINFPs">
+      <EntityTypeMapping TypeName="COURTDATABASEModel.WRINFP">
+        <MappingFragment StoreEntitySet="WRINFP">
+          <ScalarProperty Name="WRID" ColumnName="WRID" />
+          <ScalarProperty Name="PSL" ColumnName="PSL" />
+          <ScalarProperty Name="PRSNAME" ColumnName="PRSNAME" />
+          <ScalarProperty Name="PRSADDRESS" ColumnName="PRSADDRESS" />
+          <ScalarProperty Name="AREAID" ColumnName="AREAID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UpdateWRP" FunctionName="COURTDATABASEModel.Store.UpdateWRP" />
+    <FunctionImportMapping FunctionImportName="UpdateSMP" FunctionName="COURTDATABASEModel.Store.UpdateSMP" />
+    <FunctionImportMapping FunctionImportName="SommonList" FunctionName="COURTDATABASEModel.Store.SommonList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COURTDATABASEModel.SommonList_Result">
+          <ScalarProperty Name="SlNum" ColumnName="SlNum" />
+          <ScalarProperty Name="SMID" ColumnName="SMID" />
+          <ScalarProperty Name="COURTNAME" ColumnName="COURTNAME" />
+          <ScalarProperty Name="SMNUM" ColumnName="SMNUM" />
+          <ScalarProperty Name="SomonDate" ColumnName="SomonDate" />
+          <ScalarProperty Name="CaseDate" ColumnName="CaseDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="warrantL" FunctionName="COURTDATABASEModel.Store.warrantL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COURTDATABASEModel.warrantL_Result">
+          <ScalarProperty Name="SLNum" ColumnName="SLNum" />
+          <ScalarProperty Name="WRNUM" ColumnName="WRNUM" />
+          <ScalarProperty Name="COURTNAME" ColumnName="COURTNAME" />
+          <ScalarProperty Name="warrantdate" ColumnName="warrantdate" />
+          <ScalarProperty Name="casedate" ColumnName="casedate" />
+          <ScalarProperty Name="PREGREF" ColumnName="PREGREF" />
+          <ScalarProperty Name="DISPOSE" ColumnName="DISPOSE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SomonWithDetials" FunctionName="COURTDATABASEModel.Store.SomonWithDetials">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COURTDATABASEModel.SomonWithDetials_Result">
+          <ScalarProperty Name="slnum" ColumnName="slnum" />
+          <ScalarProperty Name="smid" ColumnName="smid" />
+          <ScalarProperty Name="smnum" ColumnName="smnum" />
+          <ScalarProperty Name="psl" ColumnName="psl" />
+          <ScalarProperty Name="prsdesc" ColumnName="prsdesc" />
+          <ScalarProperty Name="smdate" ColumnName="smdate" />
+          <ScalarProperty Name="casedate" ColumnName="casedate" />
+          <ScalarProperty Name="smtype" ColumnName="smtype" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="WarrantWithDetials" FunctionName="COURTDATABASEModel.Store.WarrantWithDetials">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="COURTDATABASEModel.WarrantWithDetials_Result">
+          <ScalarProperty Name="slnum" ColumnName="slnum" />
+          <ScalarProperty Name="wrid" ColumnName="wrid" />
+          <ScalarProperty Name="psl" ColumnName="psl" />
+          <ScalarProperty Name="wrnum" ColumnName="wrnum" />
+          <ScalarProperty Name="wrdate" ColumnName="wrdate" />
+          <ScalarProperty Name="casedate" ColumnName="casedate" />
+          <ScalarProperty Name="prsdesc" ColumnName="prsdesc" />
+          <ScalarProperty Name="courtid" ColumnName="courtid" />
+          <ScalarProperty Name="pregref" ColumnName="pregref" />
+          <ScalarProperty Name="dispose" ColumnName="dispose" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
